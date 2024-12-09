@@ -1,37 +1,40 @@
 package src;
 
 public class Memory {
+    private double[] memory;
+    private static final int MEMORY_SIZE = 1024;
 
-    double [] memoryValues =new double [1024];
-    boolean found ;
- 
-    public Memory(){
-		memoryValues[10]=10;
-		memoryValues[20]=20;
-		
-
+    public Memory() {
+        memory = new double[MEMORY_SIZE];
+        reset();
     }
-    public double readData(int address) {
-		if (0<=address && address<=1024) {
-			double temp=memoryValues[address];
-			found=true;
-			return temp;
-		}
-		else {
-			found=false;
-			return -1;
-		}
-			
-	}
-	
-	public void writeData(int address,double data) {
-		if(0<=address && address<=1024) {
-			memoryValues[address]=data;
-		}
-		else {
-			System.out.println(" Memory is Full !");
-		}
-		
 
-	}
+    public double read(int address) {
+        if (isValidAddress(address)) {
+            return memory[address];
+        }
+        throw new IllegalArgumentException("Invalid memory address: " + address);
+    }
+
+    public void write(int address, double value) {
+        if (isValidAddress(address)) {
+            memory[address] = value;
+        } else {
+            throw new IllegalArgumentException("Invalid memory address: " + address);
+        }
+    }
+
+    public void reset() {
+        // Initialize memory with some test values
+        for (int i = 0; i < MEMORY_SIZE; i++) {
+            memory[i] = 0;
+        }
+        // Initialize memory for test case
+        memory[0] = 2.0;  // For L.D F6, 0
+        memory[4] = 2.0;  // For L.D F2, 4
+    }
+
+    private boolean isValidAddress(int address) {
+        return address >= 0 && address < MEMORY_SIZE;
+    }
 }

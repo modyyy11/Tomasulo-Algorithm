@@ -2,17 +2,25 @@ package src.Instructions;
 
 public class Register {
 
-    private double value ;
+    private double value;
     private String name;
     private String Qi;
 
-
-
-    public Register(){
+    // Default constructor
+    public Register() {
         this.value = 0;
-       // this.ready = true;
+        this.name = "";
+        this.Qi = "";
     }
 
+    // Constructor that accepts an initial value for the register
+    public Register(double value) {
+        this.value = value;  // Initialize the register value
+        this.name = "";      // Default name (can be set later)
+        this.Qi = "";        // Default Qi (can be set later)
+    }
+
+    // Getters and Setters
     public String getName() {
         return name;
     }
@@ -21,22 +29,9 @@ public class Register {
         this.name = name;
     }
 
-    public void updateRegister (double newVal) {
-       // ready = true;
-        this.value = newVal;
-    }
-
     public double getValue() {
         return value;
     }
-
-    public boolean regReady() {
-        if (Qi.equals("")) {
-            return true;
-        }
-        return false;
-    }
-
 
     public void setValue(double value) {
         this.value = value;
@@ -50,5 +45,19 @@ public class Register {
         Qi = qi;
     }
 
-    
+    // Method to check if the register is ready (Qi is empty)
+    public boolean regReady() {
+        return Qi.equals("");  // If Qi is empty, the register is ready
+    }
+
+    // Method to update the value of the register
+    public void updateRegister(double newVal) {
+        this.value = newVal;
+    }
+
+    // Reset method to reset the register to its initial state
+    public void reset() {
+        this.value = 0.0; // Reset to 0 as default
+        this.Qi = "";     // Clear any dependencies
+    }
 }
